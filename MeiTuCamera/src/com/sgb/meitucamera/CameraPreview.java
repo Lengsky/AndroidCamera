@@ -48,6 +48,9 @@ public class CameraPreview extends FragmentActivity implements SurfaceHolder.Cal
 	//perview width 
 	int pwidth = 480;
 	int pheight = 800;
+	
+	
+	int fcghfghfgh = 600;
 
 	private boolean isShutter = true;
 	private int downX;
