@@ -4,32 +4,13 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg" >
 
-    <me.maxwin.view.TouchImageView
+    <com.sgb.meitucamera.view.TouchImageView
         android:id="@+id/edit_imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp" />
 
-    <LinearLayout
-        android:id="@+id/edit_layout_bottombar"
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/toolbar_bg"
-        android:gravity="bottom"
-        android:orientation="horizontal" >
-
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/edit_play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edit_layout_topbar"
-        android:text="试听"
-        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/beautify_layout"
@@ -39,7 +20,7 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="45dip"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:background="@drawable/tab_bg" >
 
@@ -85,8 +66,7 @@
             android:layout_alignParentBottom="true"
             android:background="@drawable/toolbar_bg"
             android:gravity="bottom"
-            android:orientation="horizontal"
-             android:visibility="gone">
+            android:orientation="horizontal" >
 
             <Button
                 android:id="@+id/button1"
@@ -120,232 +100,203 @@
                 android:paddingTop="3dip"
                 android:text="@string/frame" />
         </LinearLayout>
-        
-         <HorizontalScrollView
+
+        <HorizontalScrollView
             android:id="@+id/horizontalScrollView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="50dp"
-            android:visibility="gone"
+            android:background="#80000000"
             android:scrollbars="none"
-            android:background="#80000000">
+            android:visibility="gone" >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                >
-            	 <Button
-                android:id="@+id/button5"
-                style="@style/main_tab_bottom"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/r_bg"
-                android:drawableTop="@drawable/select_r1"
-                android:paddingTop="3dip"
-                android:text="圆角效果" 
-                />
+                android:orientation="horizontal" >
 
-            <Button
-                android:id="@+id/button6"
-                style="@style/main_tab_bottom"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/r_bg"
-                android:drawableTop="@drawable/select_r3"
-                android:paddingTop="3dip"
-                android:text="倒影效果" />
+                <Button
+                    android:id="@+id/button5"
+                    style="@style/main_tab_bottom"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/r_bg"
+                    android:drawableTop="@drawable/select_r1"
+                    android:paddingTop="3dip"
+                    android:text="圆角效果" />
 
-            <Button
-                android:id="@+id/button7"
-                style="@style/main_tab_bottom"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/r_bg"
-                android:drawableTop="@drawable/select_r4"
-                android:paddingTop="3dip"
-                android:text="怀旧效果" />
+                <Button
+                    android:id="@+id/button6"
+                    style="@style/main_tab_bottom"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/r_bg"
+                    android:drawableTop="@drawable/select_r3"
+                    android:paddingTop="3dip"
+                    android:text="倒影效果" />
 
-            <Button
-                android:id="@+id/button8"
-                style="@style/main_tab_bottom"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/r_bg"
-                android:drawableTop="@drawable/select_r1"
-                android:paddingTop="3dip"
-                android:text="浮雕效果" />
+                <Button
+                    android:id="@+id/button7"
+                    style="@style/main_tab_bottom"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/r_bg"
+                    android:drawableTop="@drawable/select_r4"
+                    android:paddingTop="3dip"
+                    android:text="怀旧效果" />
 
-            <Button
-                android:id="@+id/button9"
-                style="@style/main_tab_bottom"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/r_bg"
-                android:drawableTop="@drawable/select_r3"
-                android:paddingTop="3dip"
-                android:text="底片效果" />
+                <Button
+                    android:id="@+id/button8"
+                    style="@style/main_tab_bottom"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/r_bg"
+                    android:drawableTop="@drawable/select_r1"
+                    android:paddingTop="3dip"
+                    android:text="浮雕效果" />
 
-            <Button
-                android:id="@+id/button10"
-                style="@style/main_tab_bottom"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/r_bg"
-                android:drawableTop="@drawable/select_r4"
-                android:paddingTop="3dip"
-                android:text="光照效果" />
+                <Button
+                    android:id="@+id/button9"
+                    style="@style/main_tab_bottom"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/r_bg"
+                    android:drawableTop="@drawable/select_r3"
+                    android:paddingTop="3dip"
+                    android:text="底片效果" />
 
-            <Button
-                android:id="@+id/button11"
-                style="@style/main_tab_bottom"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/r_bg"
-                android:drawableTop="@drawable/select_r5"
-                android:paddingTop="3dip"
-                android:text="锐化效果" />
+                <Button
+                    android:id="@+id/button10"
+                    style="@style/main_tab_bottom"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/r_bg"
+                    android:drawableTop="@drawable/select_r4"
+                    android:paddingTop="3dip"
+                    android:text="光照效果" />
 
-            <Button
-                android:id="@+id/button12"
-                style="@style/main_tab_bottom"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/r_bg"
-                android:drawableTop="@drawable/select_r5"
-                android:paddingTop="3dip"
-                android:text="饱和度" />
+                <Button
+                    android:id="@+id/button11"
+                    style="@style/main_tab_bottom"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/r_bg"
+                    android:drawableTop="@drawable/select_r5"
+                    android:paddingTop="3dip"
+                    android:text="锐化效果" />
+
+                <Button
+                    android:id="@+id/button12"
+                    style="@style/main_tab_bottom"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/r_bg"
+                    android:drawableTop="@drawable/select_r5"
+                    android:paddingTop="3dip"
+                    android:text="饱和度" />
             </LinearLayout>
         </HorizontalScrollView>
-        
-         <HorizontalScrollView
+
+        <HorizontalScrollView
             android:id="@+id/horizontalScrollView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:visibility="gone"
+            android:background="#70000000"
             android:scrollbars="none"
-            android:background="#70000000" >
+            android:visibility="gone" >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                >
-            	<ImageView 
-            	    android:layout_width="60dp"
-            	    android:layout_height="60dp"
-            	    android:id="@+id/imageview1"
-            	    android:src="@drawable/xiangkuang1"
-            	    android:layout_marginLeft="5dp"/>
-            	<ImageView 
-            	    android:layout_width="60dp"
-            	    android:layout_height="60dp"
-            	    android:id="@+id/imageview2"
-            	    android:src="@drawable/xiangkuang2"
-            	    android:layout_marginLeft="10dp"/>
-            	<ImageView 
-            	    android:layout_width="60dp"
-            	    android:layout_height="60dp"
-            	    android:id="@+id/imageview3"
-            	    android:src="@drawable/xiangkuang3"
-            	    android:layout_marginLeft="10dp"/>
-            	<ImageView 
-            	    android:layout_width="60dp"
-            	    android:layout_height="60dp"
-            	    android:id="@+id/imageview4"
-            	    android:src="@drawable/xiangkuang4"
-            	    android:layout_marginLeft="10dp"/>
-            	<ImageView 
-            	    android:layout_width="60dp"
-            	    android:layout_height="60dp"
-            	    android:id="@+id/imageview5"
-            	    android:src="@drawable/xiangkuang5"
-            	    android:layout_marginLeft="10dp"/>
-            	<ImageView 
-            	    android:layout_width="60dp"
-            	    android:layout_height="60dp"
-            	    android:id="@+id/imageview6"
-            	    android:src="@drawable/xiangkuang6"
-            	    android:layout_marginLeft="10dp"/>
-            	<ImageView 
-            	    android:layout_width="60dp"
-            	    android:layout_height="60dp"
-            	    android:id="@+id/imageview7"
-            	    android:src="@drawable/xiangkuang7"
-            	    android:layout_marginLeft="10dp"/>
-            	
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/imageview1"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/nine_patch_small_0" />
+
+                <ImageView
+                    android:id="@+id/imageview2"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/nine_patch_small_1" />
+
+                <ImageView
+                    android:id="@+id/imageview3"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/nine_patch_small_2" />
+
+                <ImageView
+                    android:id="@+id/imageview4"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/nine_patch_small_3" />
+
+                <ImageView
+                    android:id="@+id/imageview5"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/nine_patch_small_4" />
+
+                <ImageView
+                    android:id="@+id/imageview6"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/nine_patch_small_5" />
+
+                <ImageView
+                    android:id="@+id/imageview7"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/nine_patch_small_0" />
             </LinearLayout>
-            </HorizontalScrollView>
+        </HorizontalScrollView>
 
-         <LinearLayout
-             android:id="@+id/tone_view" 
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_alignParentBottom="true"
-             android:layout_alignParentLeft="true"
-             android:visibility="gone"
-             android:background="#70000000"
-             >
-         </LinearLayout>
-
+        <LinearLayout
+            android:id="@+id/tone_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:orientation="horizontal"
+            android:background="#70000000"
+            android:visibility="gone" >
+        </LinearLayout>
     </RelativeLayout>
-	
+
     <FrameLayout
         android:id="@+id/imageFilter"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:visibility="gone" >
-          <ProgressBar
+
+        <ProgressBar
             android:id="@+id/progress_large"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="gone" />
-        <include 
-        android:id="@+id/include_gallery"
-        layout="@layout/gallery_filter"
-        android:layout_width="fill_parent" 
-		android:layout_height="wrap_content"
-		android:layout_gravity="bottom"
-        android:gravity="bottom"
-        	     />
-    </FrameLayout>
-    
-    <RelativeLayout
-        android:id="@+id/edit_layout_bottombar_record"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:visibility="gone" >
 
-        <Button
-            android:id="@+id/edit_record_back"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/select_main_edit_searchback"
-            />
-
-        <LinearLayout
-            android:id="@+id/edit_layout_press_record"
+        <include
+            android:id="@+id/include_gallery"
             android:layout_width="fill_parent"
-            android:layout_height="75dp"
-            android:layout_toRightOf="@+id/edit_record_back"
-            android:background="@drawable/bottom_bg"
-            android:gravity="center" >
-
-            <com.kgy.voice.RecordButton
-                android:id="@+id/edit_btn_record"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/select_main_edit_press_record" />
-        </LinearLayout>
-    </RelativeLayout>
-
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            layout="@layout/gallery_filter"
+            android:gravity="bottom" />
+    </FrameLayout>
 </RelativeLayout>

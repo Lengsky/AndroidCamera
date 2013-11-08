@@ -18,9 +18,9 @@
 
 package com.sgb.meitucamera.imageFilter;
 
-import com.sgb.meitucamera.imageFilter.RadialDistortionFilter.Point;
-
 import android.graphics.Color;
+
+import com.sgb.meitucamera.imageFilter.RadialDistortionFilter.Point;
 
 
 public class LensFlareFilter implements IImageFilter{

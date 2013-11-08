@@ -1,20 +1,20 @@
 package com.sgb.meitucamera.edit;
 
-import java.util.ArrayList;  
+import java.util.ArrayList;
 
-import com.kgy.photoplay.R;
-import android.content.Context;  
-import android.graphics.Bitmap;  
-import android.graphics.Canvas;  
-import android.graphics.ColorMatrix;  
-import android.graphics.ColorMatrixColorFilter;  
-import android.graphics.Paint;  
-import android.view.Gravity;  
-import android.view.View;  
-import android.widget.LinearLayout;  
-import android.widget.SeekBar;  
-import android.widget.SeekBar.OnSeekBarChangeListener;  
-import android.widget.TextView;  
+import com.sgb.meitucamera.homepage.R;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
  
   
 /** 
@@ -30,12 +30,12 @@ public class ToneLayer {
     public static final int FLAG_SATURATION = 0x0;  
       
     /** 
-     * �vȱ�ʶ 
+     * �vȱ��?
      */  
     public static final int FLAG_LUM = 0x1;  
       
     /** 
-     * ɫ���ʶ 
+     * ɫ����?
      */  
     public static final int FLAG_HUE = 0x2;  
       
@@ -52,7 +52,7 @@ public class ToneLayer {
     private SeekBar mHueBar;  
   
     /** 
-     * �v� 
+     * �v�?
      */  
     private TextView mLum;  
     private SeekBar mLumBar;  
@@ -68,7 +68,7 @@ public class ToneLayer {
     private ColorMatrix mAllMatrix;  
   
     /** 
-     * �v� 
+     * �v�?
      */  
     private float mLumValue = 1F;  
   
@@ -88,7 +88,7 @@ public class ToneLayer {
     private static final int MIDDLE_VALUE = 127;  
       
     /** 
-     * SeekBar�����ֵ 
+     * SeekBar������?
      */  
     private static final int MAX_VALUE = 255;  
       
@@ -179,7 +179,7 @@ public class ToneLayer {
     }  
   
     /** 
-     * �����v�ֵ 
+     * �����v��?
      * @param lum 
      */  
     public void setLum(int lum) {  
@@ -194,21 +194,21 @@ public class ToneLayer {
     /** 
      *  
      * @param flag 
-     *            ����λ0 ��ʾ�Ƿ�ı�ɫ�࣬��λ1��ʾ�Ƿ�ı䱥�Ͷ�,����λ2��ʾ�Ƿ�ı����v� 
+     *            ����λ0 ��ʾ�Ƿ�ı�ɫ�࣬���?��ʾ�Ƿ�ı䱥�Ͷ�?����λ2��ʾ�Ƿ�ı����v�?
      */  
     public Bitmap handleImage(Bitmap bm, int flag) {  
         Bitmap bmp = Bitmap.createBitmap(bm.getWidth(), bm.getHeight(),  
                 Bitmap.Config.ARGB_8888);  
-        // ����һ����ͬ�ߴ�Ŀɱ��λͼ��,���ڻ��Ƶ�ɫ���ͼƬ  
+        // ����һ����ͬ�ߴ�Ŀɱ��λͼ��,���ڻ��Ƶ�ɫ���ͼ�? 
         Canvas canvas = new Canvas(bmp); // �õ����ʶ���  
         Paint paint = new Paint(); // �½�paint  
-        paint.setAntiAlias(true); // ���ÿ����,Ҳ���Ǳ�Ե��ƽ������  
+        paint.setAntiAlias(true); // ���ÿ����?Ҳ���Ǳ�Ե��ƽ������  
         if (null == mAllMatrix) {  
             mAllMatrix = new ColorMatrix();  
         }  
   
         if (null == mLightnessMatrix) {  
-            mLightnessMatrix = new ColorMatrix(); // ������ɫ�任�ľ���androidλͼ��ɫ�仯������Ҫ�ǿ��ö������  
+            mLightnessMatrix = new ColorMatrix(); // ������ɫ�任�ľ���androidλͼ��ɫ�仯������Ҫ�ǿ��ö������? 
         }  
   
         if (null == mSaturationMatrix) {  
@@ -222,29 +222,29 @@ public class ToneLayer {
         switch (flag) {  
         case FLAG_HUE: // ��Ҫ�ı�ɫ��  
             mHueMatrix.reset();  
-            mHueMatrix.setScale(mHueValue, mHueValue, mHueValue, 1); // �졢�̡�6�������ͬ�ı���,���һ�����1��ʾ͸��Ȳ���仯���˺�����ϸ˵��ο�  
+            mHueMatrix.setScale(mHueValue, mHueValue, mHueValue, 1); // �졢�̡�6���?����ͬ�ı���,���һ�����1��ʾ͸��Ȳ���仯���˺�����ϸ˵��ο�? 
             // // android  
             // doc  
             break;  
         case FLAG_SATURATION: // ��Ҫ�ı䱥�Ͷ�  
             // saturation ���Ͷ�ֵ����С����Ϊ0����ʱ��Ӧ���ǻҶ�ͼ(Ҳ�����׻��ġ��ڰ�ͼ��)��  
-            // Ϊ1��ʾ���ͶȲ��䣬���ô���1������ʾ���  
+            // Ϊ1��ʾ���ͶȲ��䣬���ô���1������ʾ���? 
             mSaturationMatrix.reset();  
             mSaturationMatrix.setSaturation(mSaturationValue);  
             break;  
-        case FLAG_LUM: // �v�  
+        case FLAG_LUM: // �v�? 
             // hueColor����ɫ����ת�ĽǶ�,��ֵ��ʾ˳ʱ����ת����ֵ��ʾ��ʱ����ת  
             mLightnessMatrix.reset(); // ��ΪĬ��ֵ  
             mLightnessMatrix.setRotate(0, mLumValue); // �����ú�ɫ����ɫ������ת�ĽǶ�  
             mLightnessMatrix.setRotate(1, mLumValue); // �������̺�ɫ����ɫ������ת�ĽǶ�  
             mLightnessMatrix.setRotate(2, mLumValue); // ������6ɫ����ɫ������ת�ĽǶ�  
-            // �����൱�ڸı����ȫͼ��ɫ��  
+            // �����൱�ڸı����ȫͼ��ɫ��? 
             break;  
         }  
         mAllMatrix.reset();  
         mAllMatrix.postConcat(mHueMatrix);  
-        mAllMatrix.postConcat(mSaturationMatrix); // Ч�����  
-        mAllMatrix.postConcat(mLightnessMatrix); // Ч�����  
+        mAllMatrix.postConcat(mSaturationMatrix); // Ч�����? 
+        mAllMatrix.postConcat(mLightnessMatrix); // Ч�����? 
   
         paint.setColorFilter(new ColorMatrixColorFilter(mAllMatrix));// ������ɫ�任Ч��  
         canvas.drawBitmap(bm, 0, 0, paint); // ����ɫ�仯���ͼƬ����´�����λͼ��  

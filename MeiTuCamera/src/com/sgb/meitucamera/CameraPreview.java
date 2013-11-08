@@ -1,6 +1,5 @@
 package com.sgb.meitucamera;
 import java.io.BufferedOutputStream;
-import com.sgb.homepage.R;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -31,6 +30,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+
+import com.sgb.meitucamera.homepage.R;
 public class CameraPreview extends FragmentActivity implements SurfaceHolder.Callback{
 	Camera mCamera;
 	int numberOfCameras;

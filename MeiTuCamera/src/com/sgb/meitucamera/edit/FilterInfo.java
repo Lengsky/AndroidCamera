@@ -2,8 +2,6 @@ package com.sgb.meitucamera.edit;
 
 import android.graphics.Bitmap;
 
-import com.sgb.meitucamera.imageFilter.IImageFilter;
-
 public class FilterInfo {
 
 	public Bitmap bitmapIcon;

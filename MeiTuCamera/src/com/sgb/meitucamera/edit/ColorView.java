@@ -1,13 +1,12 @@
 package com.sgb.meitucamera.edit;
 
-import android.content.Context;  
-import android.graphics.Bitmap;  
-import android.graphics.BitmapFactory;  
-import android.graphics.Canvas;  
-import android.graphics.Color;  
-import android.graphics.Paint;  
-import android.util.AttributeSet;  
-import android.widget.ImageView;  
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.util.AttributeSet;
+import android.widget.ImageView;
 	  
 	public class ColorView extends ImageView {  
 	  
@@ -37,7 +36,7 @@ import android.widget.ImageView;
 	          
 	        for(int i = 1;i < height*width; i++){  
 	                color = oldPixels[i-1];  
-	                //前一个像素  
+	                //前一个像�? 
 	                pixelsR = Color.red(color);  
 	                pixelsG = Color.green(color);  
 	                pixelsB = Color.blue(color);  
@@ -50,7 +49,7 @@ import android.widget.ImageView;
 	                pixelsR = (pixelsR - pixelsR2 + 127);  
 	                pixelsG = (pixelsG - pixelsG2 + 127);  
 	                pixelsB = (pixelsB - pixelsB2 + 127);  
-	                //均小于等于255  
+	                //均小于等�?55  
 	                if(pixelsR > 255){  
 	                    pixelsR = 255;  
 	                }  

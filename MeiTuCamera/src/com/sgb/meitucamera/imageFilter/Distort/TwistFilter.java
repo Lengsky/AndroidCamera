@@ -18,7 +18,6 @@
 
 package com.sgb.meitucamera.imageFilter.Distort;
 
-import com.sgb.meitucamera.imageFilter.IImageFilter.Function;
 
 public class TwistFilter extends BilinearDistort{
 	double   _twist ;

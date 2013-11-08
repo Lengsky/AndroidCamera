@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.maxwin.view.TouchImageView;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -17,7 +16,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.Color;
-import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,11 +35,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
-import com.kgy.photoplay.R;
-import com.kgy.photoplay.utils.ImageUtil;
-import com.kgy.voice.RecordButton;
-import com.kgy.voice.RecordButton.OnFinishedRecordListener;
-import com.kgy.voice.RecordManager;
+import com.sgb.meitucamera.homepage.R;
 import com.sgb.meitucamera.imageFilter.AutoAdjustFilter;
 import com.sgb.meitucamera.imageFilter.BannerFilter;
 import com.sgb.meitucamera.imageFilter.BigBrotherFilter;
@@ -114,6 +108,7 @@ import com.sgb.meitucamera.imageFilter.Textures.MarbleTexture;
 import com.sgb.meitucamera.imageFilter.Textures.TextileTexture;
 import com.sgb.meitucamera.imageFilter.Textures.TexturerFilter;
 import com.sgb.meitucamera.imageFilter.Textures.WoodTexture;
+import com.sgb.meitucamera.view.TouchImageView;
 
 
 public class EditActivity extends FragmentActivity implements OnClickListener,OnSeekBarChangeListener {
@@ -122,17 +117,12 @@ public class EditActivity extends FragmentActivity implements OnClickListener,On
 	private TouchImageView imageView;
 	private GridView gallery;
 	private AQuery aQuery;
-	private String voicePath = null;
-	boolean b=true,b1=true,b2=false,b3=false,b4=false,b5=false;
+	boolean b=true,b1=true,b3=false,b4=false,b2=false;
 	private ToneLayer mToneLayer;
-	private MediaRecorder mRecorder = null;
-	private boolean isRecording = false;
 	private boolean isFirstTimeClickButton3 = true;
 	private ProgressBar mProgressBar;
 	private List<FilterInfo> filterArray = new ArrayList<FilterInfo>();
-	private List<IImageFilter> imageArray = new ArrayList<IImageFilter>();
-	private RecordButton mRecordButton = null;
-	private RecordManager recordManager;
+	private List<com.sgb.meitucamera.imageFilter.IImageFilter> imageArray = new ArrayList<IImageFilter>();
 	private final static String   SDPATH = Environment.getExternalStorageDirectory() + "/meitu"; 
 	private ImageAdapter filterAdapter ;
 	@Override
@@ -200,11 +190,7 @@ public class EditActivity extends FragmentActivity implements OnClickListener,On
 			for(int i=0;i<imageArray.size();i++){			
 				new processImageTask(EditActivity.this, imageArray.get(i)).execute();
 			}
-		}
-	
-//			isFirstTimeClickButton3 = false;
-		
-		
+		}			
 	}
 	
 	private void init() {
@@ -213,8 +199,8 @@ public class EditActivity extends FragmentActivity implements OnClickListener,On
 	    gallery = (GridView) findViewById(R.id.gallery);
 
 		mBitmap = getIntent().getExtras().getParcelable("bitmap");
-		miniBitmap = ImageZoom.zoomImage(mBitmap, 40, 40);
-		file = (File) getIntent().getExtras().getSerializable("file");
+		miniBitmap = ImageZoom.zoomImage(mBitmap, 60, 60);
+	//	file = (File) getIntent().getExtras().getSerializable("file");
 		imageView.setImageBitmap(mBitmap);
 
 		//
@@ -226,22 +212,11 @@ public class EditActivity extends FragmentActivity implements OnClickListener,On
 	        {  
 	            seekBars.get(i).setOnSeekBarChangeListener(EditActivity.this);  
 	        }  
-		//loadData();
-	        
-	  // loadFilterList();
-	  // loadMeiHuaFilter();
 	   loadBianXingFilter();
-		recordManager = new RecordManager();
-		mRecordButton = (RecordButton) findViewById(R.id.edit_btn_record);
 		aQuery.id(R.id.button12).clicked(this);
-		aQuery.id(R.id.edit_beautify).clicked(this);
-		aQuery.id(R.id.edit_record).clicked(this);
-		aQuery.id(R.id.edit_send).clicked(this);
 		aQuery.id(R.id.edit_back).clicked(this);
 		aQuery.id(R.id.edit_share).clicked(this);
 		aQuery.id(R.id.edit_imageView).clicked(this);
-		aQuery.id(R.id.edit_play).clicked(this);
-		aQuery.id(R.id.edit_record_back).clicked(this);
 		aQuery.id(R.id.button2).clicked(this);
 		aQuery.id(R.id.button3).clicked(this);
 		aQuery.id(R.id.button4).clicked(this);
@@ -262,62 +237,34 @@ public class EditActivity extends FragmentActivity implements OnClickListener,On
 		aQuery.id(R.id.imageview6).clicked(this);
 		aQuery.id(R.id.imageview7).clicked(this);
 		
-		
-		
-//		aQuery.id(R.id.edit_layout_bottombar_record).clicked(this);
-
-		//		aQuery.id(R.id.edit_layout_bottombar_record).clicked(this);
-		mRecordButton.setOnClickListener(this);
-		voicePath = recordVoid();
-		mRecordButton
-		.setOnFinishedRecordListener(new OnFinishedRecordListener() {
-			@Override
-			public void onFinishedRecord(String audioPath) {
-				Log.i("RECORD!!!", "finished!!!!!!!!!! save to "
-						+ audioPath);
-				Toast.makeText(EditActivity.this, "finished!!!!!!!!!! save to "
-						+ audioPath, Toast.LENGTH_LONG).show();
-			}
-		});
 	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if(keyCode == KeyEvent.KEYCODE_BACK ){
 			if(b1){
-				
 				finish();
 			}
 			if(b2){
-				aQuery.id(R.id.edit_layout_bottombar).visible();
-				aQuery.id(R.id.toolbar).gone();
-				aQuery.id(R.id.horizontalScrollView1).gone();
-				aQuery.id(R.id.tone_view).gone();
-				b=true;
+				aQuery.id(R.id.imageFilter).gone();
+				aQuery.id(R.id.toolbar).visible();
 				b2=false;
 				b1=true;
-				System.out.println("toolbar");
-			} 
-			if(b4){
-				aQuery.id(R.id.toolbar).visible();
-				aQuery.id(R.id.horizontalScrollView2).gone(); 
-				b4=false;
-				b2=true;
-				System.out.println("horizontalScrollView2");
 			}
 			if(b3){
 				aQuery.id(R.id.imageFilter).gone();
 				aQuery.id(R.id.toolbar).visible();
 				b3=false;
-				b2=true;
-				System.out.println("imageFilter");
+				b1=true;
 			}
-			if(b5){
-				aQuery.id(R.id.imageFilter).gone();
+			if(b4){
 				aQuery.id(R.id.toolbar).visible();
-				b5=false;
-				b2=true;
+				aQuery.id(R.id.horizontalScrollView2).gone(); 
+				b4=false;
+				b1=true;
 			}
+			
+			
 				
 		}
 		return false;
@@ -326,44 +273,14 @@ public class EditActivity extends FragmentActivity implements OnClickListener,On
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.edit_play:
-			if(voicePath != null){
-				recordManager.playVoice(voicePath);
-			}
-			break;
-			//		case R.id.edit_btn_record:
-			//			
-			//			break;
 		case R.id.edit_back:
 			this.finish();
 			break;
 		case R.id.edit_imageView:
-			//			if (findViewById(R.id.edit_layout_topbar).getVisibility() == View.GONE) {
-			//				aQuery.id(R.id.edit_layout_topbar).visible();
-			//				
-			//			} else {
-			//				aQuery.id(R.id.edit_layout_topbar).gone();
-			//			}
-			break;
-		case R.id.edit_beautify:
-			beautify();
-			b1=false;
-			b2=true;
-			b3=false;
-			b4=false;
-			break;
-		case R.id.edit_record:
-			record();
-			break;
-		case R.id.edit_send:
-			send();
+			
 			break;
 		case R.id.edit_share:
 			share();
-			break;
-		case R.id.edit_record_back:
-			aQuery.id(R.id.edit_layout_bottombar).visible();
-			aQuery.id(R.id.edit_layout_bottombar_record).gone();
 			break;
 		case R.id.button1:
 			if(b){
@@ -376,7 +293,6 @@ public class EditActivity extends FragmentActivity implements OnClickListener,On
 			}
 			break;
 		case R.id.button2:
-			aQuery.id(R.id.edit_layout_bottombar).gone();
 			aQuery.id(R.id.imageFilter).visible();
 			aQuery.id(R.id.toolbar).gone();
 			if(imageArray.size()<1){
@@ -390,14 +306,12 @@ public class EditActivity extends FragmentActivity implements OnClickListener,On
 			LoadImageFilter();			
 			System.out.println(">>>>>>>>"+imageArray.size());
 			initFilterIcon();
-			b2=false;
 			b4=false;
-			b2=false;
 			b3=false;
-			b5=true;
+			b1=false;
+			b2=true;
 			break;
 		case R.id.button3:
-			aQuery.id(R.id.edit_layout_bottombar).gone();
 			aQuery.id(R.id.imageFilter).visible();
 			aQuery.id(R.id.toolbar).gone();
 			aQuery.id(R.id.horizontalScrollView1).gone();
@@ -417,7 +331,6 @@ public class EditActivity extends FragmentActivity implements OnClickListener,On
 			b1=false;
 			break;
 		case R.id.button4:
-			aQuery.id(R.id.edit_layout_bottombar).gone();
 			aQuery.id(R.id.toolbar).gone();
 			aQuery.id(R.id.horizontalScrollView2).visible();
 			b4=true;
@@ -459,67 +372,34 @@ public class EditActivity extends FragmentActivity implements OnClickListener,On
 			break;
 			
 		case R.id.imageview1:
-			bitmap=new ImageUtil(EditActivity.this).addBigFrame(mBitmap, R.drawable.big1);
+			bitmap=new ImageUtil(EditActivity.this).addBigFrame(mBitmap, R.drawable.nine_patch_small_0);
 			imageView.setImageBitmap(bitmap);
 			break;
 		case R.id.imageview2:
-			bitmap=new ImageUtil(EditActivity.this).addBigFrame(mBitmap, R.drawable.big2);
+			bitmap=new ImageUtil(EditActivity.this).addBigFrame(mBitmap, R.drawable.nine_patch_small_1);
 			imageView.setImageBitmap(bitmap);
 			break; 	
 		case R.id.imageview3:
-			bitmap=new ImageUtil(EditActivity.this).addBigFrame(mBitmap, R.drawable.big3);
+			bitmap=new ImageUtil(EditActivity.this).addBigFrame(mBitmap, R.drawable.nine_patch_small_2);
 			imageView.setImageBitmap(bitmap);
 			break; 	
 		case R.id.imageview4:
-			bitmap=new ImageUtil(EditActivity.this).addBigFrame(mBitmap, R.drawable.big4);
+			bitmap=new ImageUtil(EditActivity.this).addBigFrame(mBitmap, R.drawable.nine_patch_small_3);
 			imageView.setImageBitmap(bitmap);
 			break; 	
 		case R.id.imageview5:
-			bitmap=new ImageUtil(EditActivity.this).addBigFrame(mBitmap, R.drawable.big5);
+			bitmap=new ImageUtil(EditActivity.this).addBigFrame(mBitmap, R.drawable.nine_patch_small_4);
 			imageView.setImageBitmap(bitmap);
 			break; 	
 		case R.id.imageview6:
-			bitmap=new ImageUtil(EditActivity.this).addBigFrame(mBitmap, R.drawable.big6);
+			bitmap=new ImageUtil(EditActivity.this).addBigFrame(mBitmap, R.drawable.nine_patch_small_5);
 			imageView.setImageBitmap(bitmap);
 			break; 	
 		case R.id.imageview7:
-			bitmap=new ImageUtil(EditActivity.this).addBigFrame(mBitmap, R.drawable.big7);
+			bitmap=new ImageUtil(EditActivity.this).addBigFrame(mBitmap, R.drawable.nine_patch_small_0);
 			imageView.setImageBitmap(bitmap);
 			break; 	
 		}
-	}
-
-	public String recordVoid() {
-		String strImgPath = Environment.getExternalStorageDirectory().toString()
-				+ "/Sound/";// 存放录音的文件夹
-		String fileName = new SimpleDateFormat("yyyyMMddHHmmss")
-		.format(new Date(System.currentTimeMillis())) + ".amr";// 照片命名
-		File out = new File(strImgPath);
-		if (!out.exists()) {
-			out.mkdirs();
-		}
-		out = new File(strImgPath, fileName);
-		strImgPath = strImgPath + "abc.amr";
-		mRecordButton.setSavePath(strImgPath);
-		return strImgPath;
-	}
-
-	private void beautify() {		
-		// TODO 图片美化
-		aQuery.id(R.id.edit_layout_bottombar).gone();
-		aQuery.id(R.id.toolbar).visible();
-
-
-	}
-
-	private void record() {
-		voicePath = recordVoid();
-		aQuery.id(R.id.edit_layout_bottombar).gone();
-		aQuery.id(R.id.edit_layout_bottombar_record).visible();
-	}
-
-	private void send() {
-		// TODU 上传到服务器
 	}
 
 	private void share() {
@@ -527,10 +407,6 @@ public class EditActivity extends FragmentActivity implements OnClickListener,On
 		shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
 		shareIntent.setType("image/jpeg");
 		startActivity(Intent.createChooser(shareIntent, "分享"));
-	}
-
-	private void translator() {
-
 	}
 
 	private void LoadImageFilter(){
@@ -546,33 +422,33 @@ public class EditActivity extends FragmentActivity implements OnClickListener,On
 	
 	//美化部分滤镜
 	private void loadMeiHuaFilter(){
+		imageArray.add(new NormalFilter());
 		imageArray.add(new VideoFilter(VideoFilter.VIDEO_TYPE.VIDEO_STAGGERED));
-//		imageArray.add(new VideoFilter(VideoFilter.VIDEO_TYPE.VIDEO_TRIPED));
-//		imageArray.add(new VideoFilter(VideoFilter.VIDEO_TYPE.VIDEO_3X3));
+		imageArray.add(new VideoFilter(VideoFilter.VIDEO_TYPE.VIDEO_TRIPED));
+		imageArray.add(new VideoFilter(VideoFilter.VIDEO_TYPE.VIDEO_3X3));
 		imageArray.add(new TileReflectionFilter(20, 8, 45, (byte)2));
 		imageArray.add(new TexturerFilter(new LabyrinthTexture(), 0.8f, 0.8f));
-//		imageArray.add(new TexturerFilter(new CloudsTexture(), 0.8f, 0.8f));
-//		imageArray.add(new TexturerFilter(new TextileTexture(), 0.8f, 0.8f));
-//		imageArray.add(new TexturerFilter(new WoodTexture(), 0.8f, 0.8f));
-	
-//		imageArray.add(new FillPatternFilter(EditActivity.this, R.drawable.gallery_select));
+		imageArray.add(new TexturerFilter(new CloudsTexture(), 0.8f, 0.8f));
+		imageArray.add(new TexturerFilter(new TextileTexture(), 0.8f, 0.8f));
+		imageArray.add(new TexturerFilter(new WoodTexture(), 0.8f, 0.8f));
+		imageArray.add(new FillPatternFilter(EditActivity.this, R.drawable.gallery_select));
 		imageArray.add(new ZoomBlurFilter(30));
-//		imageArray.add(new HslModifyFilter(20f));
-//		imageArray.add(new HslModifyFilter(40f));
-//		imageArray.add(new HslModifyFilter(60f));
-//		imageArray.add(new HslModifyFilter(80f));
+		imageArray.add(new HslModifyFilter(20f));
+		imageArray.add(new HslModifyFilter(40f));
+		imageArray.add(new HslModifyFilter(60f));
+		imageArray.add(new HslModifyFilter(80f));
 		imageArray.add(new HslModifyFilter(100f));
-//		imageArray.add(new HslModifyFilter(150f));
-//		imageArray.add(new HslModifyFilter(200f));
-//		imageArray.add(new HslModifyFilter(250f));
-//		imageArray.add(new HslModifyFilter(300f));
+		imageArray.add(new HslModifyFilter(150f));
+		imageArray.add(new HslModifyFilter(200f));
+		imageArray.add(new HslModifyFilter(250f));
+		imageArray.add(new HslModifyFilter(300f));
 		imageArray.add(new SoftGlowFilter(10, 0.1f, 0.1f));
-//		imageArray.add(new ColorToneFilter(0x00FFFF, 192));
-//		imageArray.add(new ColorToneFilter(0xFF0000, 192));
-//		imageArray.add(new ColorToneFilter(0x00FF00,192));
+		imageArray.add(new ColorToneFilter(0x00FFFF, 192));
+		imageArray.add(new ColorToneFilter(0xFF0000, 192));
+		imageArray.add(new ColorToneFilter(0x00FF00,192));
 		imageArray.add(new ColorToneFilter(Color.rgb(33, 168, 254), 192));
 		imageArray.add(new ThreeDGridFilter(16, 100));
-//		imageArray.add(new SharpFilter());
+		imageArray.add(new SharpFilter());
 		imageArray.add(new SharpFilter(50));
 		imageArray.add(new PosterizeFilter(2));
 		imageArray.add(new LensFlareFilter());
@@ -581,6 +457,68 @@ public class EditActivity extends FragmentActivity implements OnClickListener,On
 		imageArray.add(new RippleFilter(38, 15, true));
 		imageArray.add(new TwistFilter(27, 106));
 		imageArray.add(new BulgeFilter(-97));
+
+		//
+		imageArray.add(new YCBCrLinearFilter(new YCBCrLinearFilter.Range(-0.276f, 0.163f), new YCBCrLinearFilter.Range(-0.202f, 0.5f)));//13
+		imageArray.add(new YCBCrLinearFilter(new YCBCrLinearFilter.Range(-0.3f, 0.3f)));
+		imageArray.add(new MirrorFilter(false));
+		imageArray.add(new RaiseFrameFilter(20));
+		imageArray.add(new BlindFilter(false, 96, 100, 0x000000));
+		imageArray.add(new BlindFilter(false, 96, 100, 0xffffff));
+		imageArray.add(new TileReflectionFilter(20,8));
+		imageArray.add(new MistFilter());
+		imageArray.add(new MosaicFilter());
+		imageArray.add(new MirrorFilter(true));//16
+		imageArray.add(new OilPaintFilter());
+		imageArray.add(new RadialDistortionFilter());
+		imageArray.add(new ReflectionFilter(true));
+		imageArray.add(new ReflectionFilter(false));
+		imageArray.add(new TexturerFilter(new MarbleTexture(), 1.8f, 0.8f));//10		
+		imageArray.add(new WaveFilter(25, 10));
+		imageArray.add(new PaintBorderFilter(0x00FFFF));
+		imageArray.add(new PaintBorderFilter(0x00FF00));
+		imageArray.add(new CleanGlassFilter());
+		imageArray.add(new FocusFilter());
+		imageArray.add(new FilmFilter(80f));
+		imageArray.add(new SceneFilter(5f, Gradient.Scene3()));
+		imageArray.add(new SceneFilter(5f, Gradient.Scene2()));
+		imageArray.add(new SceneFilter(5f, Gradient.Scene1()));
+		imageArray.add(new SceneFilter(5f, Gradient.Scene()));
+		imageArray.add(new ComicFilter());
+		imageArray.add(new NoiseFilter());
+		imageArray.add(new BlackWhiteFilter());
+		imageArray.add(new EdgeFilter());
+		imageArray.add(new PixelateFilter());
+		imageArray.add(new NeonFilter());
+		imageArray.add(new BigBrotherFilter());
+		imageArray.add(new MonitorFilter());
+		imageArray.add(new ReliefFilter());
+		imageArray.add(new BrightContrastFilter());
+		imageArray.add(new SaturationModifyFilter());
+		imageArray.add(new ThresholdFilter());
+		imageArray.add(new NoiseFilter());
+		imageArray.add(new BannerFilter(10, true));
+		imageArray.add(new BannerFilter(10, false));
+		imageArray.add(new RectMatrixFilter());
+		imageArray.add(new BrickFilter());
+		imageArray.add(new GaussianBlurFilter());
+		imageArray.add(new LightFilter());
+		imageArray.add(new SaturationModifyFilter());//81
+		imageArray.add(new SmashColorFilter());
+		imageArray.add(new TintFilter());
+		imageArray.add(new VignetteFilter());
+		imageArray.add(new AutoAdjustFilter());
+		imageArray.add(new ColorQuantizeFilter());
+		imageArray.add(new WaterWaveFilter());
+		imageArray.add(new VintageFilter());
+		imageArray.add(new OldPhotoFilter());
+		imageArray.add(new SepiaFilter());
+		imageArray.add(new RainBowFilter());
+		imageArray.add(new FeatherFilter());
+		imageArray.add(new XRadiationFilter());
+		imageArray.add(new PaintBorderFilter(0xFF0000));
+		imageArray.add(new LomoFilter());
+		imageArray.add(new InvertFilter());
 		
 	}
 	
@@ -601,25 +539,12 @@ public class EditActivity extends FragmentActivity implements OnClickListener,On
 		imageArray.add(new RadialDistortionFilter());
 		imageArray.add(new ReflectionFilter(true));
 		imageArray.add(new ReflectionFilter(false));
-	}
-	
-	//测试选取
-	private void loadFilterList(){
 		
 		
 		
-		imageArray.add(new TexturerFilter(new MarbleTexture(), 1.8f, 0.8f));//10
 		
-		
-
-		
-		//ON4
-
-		
-		
+		imageArray.add(new TexturerFilter(new MarbleTexture(), 1.8f, 0.8f));//10		
 		imageArray.add(new WaveFilter(25, 10));
-		
-		//ON6
 		imageArray.add(new PaintBorderFilter(0x00FFFF));
 		imageArray.add(new PaintBorderFilter(0x00FF00));
 		imageArray.add(new CleanGlassFilter());
@@ -632,31 +557,31 @@ public class EditActivity extends FragmentActivity implements OnClickListener,On
 		imageArray.add(new ComicFilter());
 		
 		//ON7
-		imageArray.add(new NormalFilter());
+		imageArray.add(new NoiseFilter());
 		imageArray.add(new BlackWhiteFilter());
 		imageArray.add(new EdgeFilter());
 		imageArray.add(new PixelateFilter());
-//		imageArray.add(new NeonFilter());
-//		imageArray.add(new BigBrotherFilter());
-//		imageArray.add(new MonitorFilter());
-//		imageArray.add(new ReliefFilter());
-//		imageArray.add(new BrightContrastFilter());
-//		imageArray.add(new SaturationModifyFilter());
-//		
-//		//ON8
-//		imageArray.add(new ThresholdFilter());
-//		imageArray.add(new NoiseFilter());
-//		imageArray.add(new BannerFilter(10, true));
-//		imageArray.add(new BannerFilter(10, false));
+		imageArray.add(new NeonFilter());
+		imageArray.add(new BigBrotherFilter());
+		imageArray.add(new MonitorFilter());
+		imageArray.add(new ReliefFilter());
+		imageArray.add(new BrightContrastFilter());
+		imageArray.add(new SaturationModifyFilter());
+		
+		//ON8
+		imageArray.add(new ThresholdFilter());
+		imageArray.add(new NoiseFilter());
+		imageArray.add(new BannerFilter(10, true));
+		imageArray.add(new BannerFilter(10, false));
 		imageArray.add(new RectMatrixFilter());
 		imageArray.add(new BrickFilter());
 		imageArray.add(new GaussianBlurFilter());
 		imageArray.add(new LightFilter());
 		
-//		imageArray.add(new SaturationModifyFilter());//81
-//		imageArray.add(new SmashColorFilter());
-//		imageArray.add(new TintFilter());
-//		imageArray.add(new VignetteFilter());
+		imageArray.add(new SaturationModifyFilter());//81
+		imageArray.add(new SmashColorFilter());
+		imageArray.add(new TintFilter());
+		imageArray.add(new VignetteFilter());
 		imageArray.add(new AutoAdjustFilter());
 		imageArray.add(new ColorQuantizeFilter());
 		
@@ -670,7 +595,7 @@ public class EditActivity extends FragmentActivity implements OnClickListener,On
 		imageArray.add(new XRadiationFilter());
 		imageArray.add(new PaintBorderFilter(0xFF0000));
 		imageArray.add(new LomoFilter());
-		//imageArray.add(new InvertFilter());
+		imageArray.add(new InvertFilter());
 	}
 
 	public class processImageTask extends AsyncTask<Void, Void, Bitmap> {
@@ -727,9 +652,6 @@ public class EditActivity extends FragmentActivity implements OnClickListener,On
 		protected void onPostExecute(Bitmap result) {
 			if(result != null){
 				super.onPostExecute(result);
-//				if(filterArray.size()==imageArray.size()){
-//					imageView.setImageBitmap(result);
-//				}
 				tempBitmap = result;				
 				if(filterArray.size()<imageArray.size()){
 					filterArray.add(new FilterInfo(result,false));

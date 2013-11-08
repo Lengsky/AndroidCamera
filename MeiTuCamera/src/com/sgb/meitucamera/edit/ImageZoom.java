@@ -8,8 +8,8 @@ import android.graphics.Matrix;
 public class ImageZoom {
 	
 	private Bitmap imageDensity(Bitmap bitMap) { 
-		//图片允许最大空间   单位：KB 
-		double maxSize =40.00; 
+		//图片允许�?��空间   单位：KB 
+		double maxSize =60.00; 
 		Bitmap bitmap = null;
 		//将bitmap放至数组中，意在bitmap的大小（与实际读取的原文件要大）   
 		ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
@@ -17,11 +17,11 @@ public class ImageZoom {
 		byte[] b = baos.toByteArray(); 
 		//将字节换成KB 
 		double mid = b.length/1024; 
-		//判断bitmap占用空间是否大于允许最大空间  如果大于则压缩 小于则不压缩 
+		//判断bitmap占用空间是否大于允许�?��空间  如果大于则压�?小于则不压缩 
 		if (mid > maxSize) { 
-			//获取bitmap大小 是允许最大大小的多少倍 
+			//获取bitmap大小 是允许最大大小的多少�?
 			double i = mid / maxSize; 
-			//开始压缩  此处用到平方根 将宽带和高度压缩掉对应的平方根倍 （1.保持刻度和高度和原bitmap比率一致，压缩后也达到了最大大小占用空间的大小） 
+			//�?��压缩  此处用到平方�?将宽带和高度压缩掉对应的平方根�? �?.保持刻度和高度和原bitmap比率�?��，压缩后也达到了�?��大小占用空间的大小） 
 			bitmap = zoomImage(bitMap, bitMap.getWidth() / Math.sqrt(i), 
 					bitMap.getHeight() / Math.sqrt(i)); 
 		}
@@ -35,7 +35,7 @@ public class ImageZoom {
 		float height = bgimage.getHeight(); 
 		// 创建操作图片用的matrix对象 
 		Matrix matrix = new Matrix(); 
-		// 计算宽高缩放率 
+		// 计算宽高缩放�?
 		float scaleWidth = ((float) newWidth) / width; 
 		float scaleHeight = ((float) newHeight) / height; 
 		// 缩放图片动作 

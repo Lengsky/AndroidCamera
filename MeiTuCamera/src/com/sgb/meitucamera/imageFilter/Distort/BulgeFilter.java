@@ -18,7 +18,6 @@
 
 package com.sgb.meitucamera.imageFilter.Distort;
 
-import com.sgb.meitucamera.imageFilter.IImageFilter.Function;
 
 
 
