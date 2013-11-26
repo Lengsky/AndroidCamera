@@ -12,7 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.androidquery.AQuery;
-import com.sgb.meitucamera.homepage.R;
+import com.sgb.meitucamera.R;
 public class PickImage extends Activity implements OnClickListener {
 
 	private AQuery aQuery;

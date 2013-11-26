@@ -2,7 +2,7 @@ package com.sgb.meitucamera.edit;
 
 import java.util.ArrayList;
 
-import com.sgb.meitucamera.homepage.R;
+import com.sgb.meitucamera.R;
 
 import android.content.Context;
 import android.graphics.Bitmap;

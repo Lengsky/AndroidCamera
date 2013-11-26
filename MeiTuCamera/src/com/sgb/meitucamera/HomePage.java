@@ -1,13 +1,16 @@
-package com.sgb.meitucamera.homepage;
+package com.sgb.meitucamera;
 
 import java.io.File;
+import java.util.Calendar;
+import java.util.Locale;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -17,7 +20,7 @@ import android.widget.ImageView;
 import com.sgb.meitucamera.edit.EditActivity;
 import com.sgb.meitucamera.edit.PhotoControl;
 
-public class HomePage extends Activity implements OnClickListener{
+public class HomePage extends MeituActivity implements OnClickListener{
 	ImageView camera,photo;
 	private File tempFile;
 
@@ -31,9 +34,25 @@ public class HomePage extends Activity implements OnClickListener{
 		photo =(ImageView)findViewById(R.id.photo);
 		camera.setOnClickListener(this);
 		photo.setOnClickListener(this);
-	}
+		sdStatus();
 		
+	}
 	
+	// 检测sd是否可用
+	public void sdStatus(){
+		 String sdStatus = Environment.getExternalStorageState();  
+         if (sdStatus.equals(Environment.MEDIA_MOUNTED)) {   
+        	 String name = new DateFormat().format("yyyyMMdd_hhmmss",Calendar.getInstance(Locale.CHINA)) + ".jpg";     
+        	 File file = new File("/sdcard/myImage/");  
+        	 file.mkdirs();// 创建文件夹  
+         tempFile = new File("/sdcard/myImage/"+name); 
+         String photoPath = "/sdcard/myImage/"+name;
+         mMeituCameraApplication.setPhotoPath(photoPath);
+         mMeituCameraApplication.setFile(tempFile);
+        
+         
+         }  
+	}
 	public void onClick(View v) {
 		if (v.getId() == R.id.camera) {
 			Intent cameraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -68,14 +87,14 @@ public class HomePage extends Activity implements OnClickListener{
 		case PhotoControl.PHOTO_REQUEST_CUT:
 			if (data != null) {
 				Bitmap photo = data.getExtras().getParcelable("data");
-//				File file = mControl.saveBitmap(photo,
-//						mControl.getPhotoFileName());
-				Bundle b = new Bundle();
-				b.putParcelable("bitmap", photo);
+
+				mMeituCameraApplication.setmBitmap(photo);
+			//	Bundle b = new Bundle();
+			//	b.putParcelable("bitmap", photo);
 		//		b.putSerializable("file", file);
-				data.putExtras(b);
+			//	data.putExtras(b);
 				Intent intent = new Intent(this, EditActivity.class);
-				intent.putExtras(b);
+			//	intent.putExtras(b);
 				startActivity(intent);
 			}
 			break;

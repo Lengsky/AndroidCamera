@@ -1,7 +1,5 @@
 package com.sgb.meitucamera;
 
-import com.sgb.meitucamera.homepage.R;
-
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;

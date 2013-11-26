@@ -20,7 +20,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -35,7 +34,8 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
-import com.sgb.meitucamera.homepage.R;
+import com.sgb.meitucamera.MeituActivity;
+import com.sgb.meitucamera.R;
 import com.sgb.meitucamera.imageFilter.AutoAdjustFilter;
 import com.sgb.meitucamera.imageFilter.BannerFilter;
 import com.sgb.meitucamera.imageFilter.BigBrotherFilter;
@@ -111,7 +111,7 @@ import com.sgb.meitucamera.imageFilter.Textures.WoodTexture;
 import com.sgb.meitucamera.view.TouchImageView;
 
 
-public class EditActivity extends FragmentActivity implements OnClickListener,OnSeekBarChangeListener {
+public class EditActivity extends MeituActivity implements OnClickListener,OnSeekBarChangeListener {
 	static Bitmap mBitmap,miniBitmap,bitmap,tempBitmap;
 	private File file;
 	private TouchImageView imageView;
@@ -198,7 +198,8 @@ public class EditActivity extends FragmentActivity implements OnClickListener,On
 		mProgressBar = (ProgressBar) findViewById(R.id.progress_large);
 	    gallery = (GridView) findViewById(R.id.gallery);
 
-		mBitmap = getIntent().getExtras().getParcelable("bitmap");
+	//	mBitmap = getIntent().getExtras().getParcelable("bitmap");
+	    mBitmap = mMeituCameraApplication.getmBitmap();
 		miniBitmap = ImageZoom.zoomImage(mBitmap, 60, 60);
 	//	file = (File) getIntent().getExtras().getSerializable("file");
 		imageView.setImageBitmap(mBitmap);

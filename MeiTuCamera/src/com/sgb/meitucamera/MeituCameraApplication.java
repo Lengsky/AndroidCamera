@@ -1,4 +1,4 @@
-package com.sgb.meitucamera.app;
+package com.sgb.meitucamera;
 
 import java.io.File;
 
@@ -8,7 +8,15 @@ import android.graphics.Bitmap;
 public class MeituCameraApplication extends Application {
 	
 	private Bitmap mBitmap;
-	
+	private String photoPath;
+	public String getPhotoPath() {
+		return photoPath;
+	}
+
+	public void setPhotoPath(String photoPath) {
+		this.photoPath = photoPath;
+	}
+
 	private File file;
 
 	public Bitmap getmBitmap() {
